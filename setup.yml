@@ -7,4 +7,11 @@
   - name: clone petclinic
     git: repo=https://github.com/rosenmor/spring-petclinic.git dest=~/petclinic
   - name: clone myrepo
-    git: repo=https://github.com/rosenmor/myrepo.git dest=~/myrepo
+    git: repo=https://github.com/rosenmor/myrepo.git dest=~/myrepo update=no
+  - name: create maven directory
+    file: path=~/maven state=directory mode=0755
+  - name: get maven
+    unarchive: src=http://apache.mivzakim.net/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz dest=~/maven copy=no creates=~/maven/apache-maven-3.3.9/README.txt
+  - name: set maven environment variables
+    lineinfile: dest=~/.bash_profile state=present regexp='^M2_HOME' line='M2_HOME=~/maven/apache-maven-3.3.9'
+ 
